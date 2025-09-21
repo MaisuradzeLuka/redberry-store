@@ -12,16 +12,22 @@ const Navbar = () => {
           <Image src="/Logo.png" width={180} height={24} alt="main logo" />
         </Link>
 
-        <div className="flex items-center gap-2">
-          <Link href="#">
-            <MdLocalGroceryStore className="w-6 h-6" />
+        <div className="flex items-center gap-6">
+          <Link href="/products" className="text-gray-700 hover:text-gray-900 font-medium">
+            Products
           </Link>
+          
+          <div className="flex items-center gap-2">
+            <Link href="#">
+              <MdLocalGroceryStore className="w-6 h-6" />
+            </Link>
 
-          <FaRegUserCircle className="w-10 h-10" />
+            <FaRegUserCircle className="w-10 h-10" />
 
-          <button>
-            <IoLogOut className="w-6 h-6" />
-          </button>
+            <button>
+              <IoLogOut className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </nav>
     </header>

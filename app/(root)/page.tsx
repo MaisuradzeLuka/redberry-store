@@ -1,34 +1,38 @@
 import React from "react";
 import Link from "next/link";
+import { getProducts } from "@/actions/products";
+import { ProductsType } from "@/types";
+import ProductCard from "@/components/ProductCard";
+import { Button } from "@/components/ui/button";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const res = await getProducts();
+
+  const products: ProductsType[] = res.success ? res.data : [];
+
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center">
-        <div className="mb-6">
-          <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-2xl">R</span>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">RedSeam Clothing</h1>
-          <p className="text-gray-600">Welcome to your dashboard!</p>
-        </div>
-        
-        <div className="space-y-4">
-          <p className="text-sm text-gray-500">
-            You have successfully authenticated with RedSeam Clothing.
-          </p>
-          
-          <div className="pt-4 border-t border-gray-200">
-            <Link
-              href="/sign-in"
-              className="text-orange-500 hover:text-orange-600 font-medium text-sm"
-            >
-              Sign Out
-            </Link>
-          </div>
-        </div>
+    <main className="w-[1720px] mx-auto mt-18 pb-14">
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-[#10151F] text-5xl font-semibold">
+          Featured Products
+        </h2>
+        <Link href="/products">
+          <Button variant="outline">View All Products</Button>
+        </Link>
       </div>
-    </div>
+
+      {products.length ? (
+        <div className="w-full grid grid-cols-4 gap-6">
+          {products.slice(0, 8).map((product) => (
+            <ProductCard {...product} key={product.id} />
+          ))}
+        </div>
+      ) : (
+        <div className="w-max mx-auto mt-40 text-2xl">
+          No products available.
+        </div>
+      )}
+    </main>
   );
 };
 
