@@ -11,16 +11,14 @@ export function FilterWrapper() {
   const handlePriceFilter = (priceFrom: number, priceTo: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("page");
-    
-    // Always remove existing filter parameters first
+
     params.delete("filter[price_from]");
     params.delete("filter[price_to]");
-    
-    // Only add parameters if they have valid values
+
     if (priceFrom > 0 && priceFrom !== Number.MAX_SAFE_INTEGER) {
       params.set("filter[price_from]", priceFrom.toString());
     }
-    
+
     if (priceTo > 0 && priceTo < Number.MAX_SAFE_INTEGER) {
       params.set("filter[price_to]", priceTo.toString());
     }
