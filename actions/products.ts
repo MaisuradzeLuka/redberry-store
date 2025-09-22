@@ -1,6 +1,8 @@
-export async function getProducts() {
+export async function getProducts(page: string) {
   try {
-    const res = await fetch(`${process.env.API_CONNECTION_URL}/products`);
+    const res = await fetch(
+      `${process.env.API_CONNECTION_URL}/products?page=${page}`
+    );
 
     if (!res.ok) {
       return { success: false, message: (await res.json()).errors };
@@ -8,7 +10,7 @@ export async function getProducts() {
 
     const data = await res.json();
 
-    return { success: true, data: data.data };
+    return { success: true, data };
   } catch (error) {
     console.error("Sign in error:", error);
 
