@@ -1,8 +1,20 @@
-export async function getProducts(page: string) {
+export async function getProducts(
+  page: string,
+  price_from?: string,
+  price_to?: string
+) {
   try {
-    const res = await fetch(
-      `${process.env.API_CONNECTION_URL}/products?page=${page}`
-    );
+    let url = `${process.env.API_CONNECTION_URL}/products?page=${page}`;
+    
+    if (price_from && price_from !== "0") {
+      url += `&filter%5Bprice_from%5D=${price_from}`;
+    }
+    
+    if (price_to && price_to !== "0") {
+      url += `&filter%5Bprice_to%5D=${price_to}`;
+    }
+
+    const res = await fetch(url);
 
     if (!res.ok) {
       return { success: false, message: (await res.json()).errors };
@@ -12,7 +24,7 @@ export async function getProducts(page: string) {
 
     return { success: true, data };
   } catch (error) {
-    console.error("Sign in error:", error);
+    console.error("Products fetch error:", error);
 
     return {
       success: false,

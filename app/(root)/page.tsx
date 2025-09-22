@@ -5,18 +5,18 @@ import { MetaType, ProductsType } from "@/types";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { ResultCount } from "@/components/ui/result-count";
-import { FilterButton } from "@/components/ui/filter-button";
+import { FilterWrapper } from "@/components/FilterWrapper";
 import { SortDropdown } from "@/components/ui/sort-dropdown";
 import { Pagination } from "@/components/Pagination";
 
 const HomePage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ page: string }>;
+  searchParams: Promise<{ page: string; "filter[price_from]": string; "filter[price_to]": string }>;
 }) => {
-  const { page } = await searchParams;
+  const { page, "filter[price_from]": price_from, "filter[price_to]": price_to } = await searchParams;
 
-  const res = await getProducts(page);
+  const res = await getProducts(page, price_from, price_to);
   const products: ProductsType[] = res.success ? res.data.data : [];
   const meta: MetaType = res.success ? res.data.meta : null;
 
@@ -33,11 +33,11 @@ const HomePage = async ({
               total={meta?.total || 0}
             />
 
-            <div className="h-4 w-px bg-gray-300"></div>
+            <div className="h-4 w-px bg-gray-300" />
 
-            <FilterButton>Filter</FilterButton>
+            <FilterWrapper />
 
-            <div className="h-4 w-px bg-gray-300"></div>
+            <div className="h-4 w-px bg-gray-300" />
 
             <SortDropdown>Sort by</SortDropdown>
           </div>

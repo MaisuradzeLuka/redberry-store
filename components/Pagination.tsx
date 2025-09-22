@@ -47,7 +47,6 @@ export function Pagination({
       pages.push("...");
       addRange(totalPages - (maxVisiblePages - 2), totalPages - 1);
     } else {
-      // middle pages
       pages.push("...");
       addRange(currentPage - 1, currentPage + 1);
       pages.push("...");
