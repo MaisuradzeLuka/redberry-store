@@ -1,7 +1,8 @@
 export async function getProducts(
   page: string,
   price_from?: string,
-  price_to?: string
+  price_to?: string,
+  sort?: string
 ) {
   try {
     let url = `${process.env.API_CONNECTION_URL}/products?page=${page}`;
@@ -12,6 +13,10 @@ export async function getProducts(
     
     if (price_to && price_to !== "0") {
       url += `&filter%5Bprice_to%5D=${price_to}`;
+    }
+
+    if (sort) {
+      url += `&sort=${sort}`;
     }
 
     const res = await fetch(url);

@@ -6,17 +6,27 @@ import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { ResultCount } from "@/components/ui/result-count";
 import { FilterWrapper } from "@/components/FilterWrapper";
-import { SortDropdown } from "@/components/ui/sort-dropdown";
+import { SortDropdown } from "@/components/Sort-dropdown";
 import { Pagination } from "@/components/Pagination";
 
 const HomePage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ page: string; "filter[price_from]": string; "filter[price_to]": string }>;
+  searchParams: Promise<{
+    page: string;
+    "filter[price_from]": string;
+    "filter[price_to]": string;
+    sort: string;
+  }>;
 }) => {
-  const { page, "filter[price_from]": price_from, "filter[price_to]": price_to } = await searchParams;
+  const {
+    page,
+    "filter[price_from]": price_from,
+    "filter[price_to]": price_to,
+    sort,
+  } = await searchParams;
 
-  const res = await getProducts(page, price_from, price_to);
+  const res = await getProducts(page, price_from, price_to, sort);
   const products: ProductsType[] = res.success ? res.data.data : [];
   const meta: MetaType = res.success ? res.data.meta : null;
 
@@ -39,7 +49,7 @@ const HomePage = async ({
 
             <div className="h-4 w-px bg-gray-300" />
 
-            <SortDropdown>Sort by</SortDropdown>
+            <SortDropdown />
           </div>
         </div>
       </div>
