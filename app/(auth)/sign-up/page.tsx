@@ -75,6 +75,8 @@ const SignUpPage = () => {
     try {
       const result = await signUpAction(formData);
 
+      console.log(result);
+
       if (!result.success) {
         Object.entries(result.message).forEach(([key, value]) => {
           setError(key as keyof SignUpFormData, {
@@ -85,7 +87,8 @@ const SignUpPage = () => {
         return;
       }
 
-      localStorage.setItem("token", result.data.token);
+      sessionStorage.setItem("token", result.data.token);
+      sessionStorage.setItem("user", JSON.stringify(result.data.user));
       router.push("/");
     } catch (error: any) {
       console.error("Sign up error:", error.message);

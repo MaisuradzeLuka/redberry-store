@@ -22,14 +22,17 @@ export async function signInAction({
   password: string;
 }) {
   try {
-    const res = await fetch(`${process.env.API_CONNECTION_URL}/login`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_CONNECTION_URL}/login`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
 
     if (!res.ok) {
       return { success: false, message: (await res.json()).errors };
@@ -57,13 +60,16 @@ export async function signInAction({
 
 export async function signUpAction(formData: FormData) {
   try {
-    const res = await fetch(`${process.env.API_CONNECTION_URL}/register`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-      },
-      body: formData,
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_CONNECTION_URL}/register`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      }
+    );
 
     if (!res.ok) {
       return { success: false, message: (await res.json()).errors };

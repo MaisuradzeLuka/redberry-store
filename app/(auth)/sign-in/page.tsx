@@ -46,7 +46,8 @@ const SignInPage = () => {
           if (localStorage.getItem("token")) {
             localStorage.removeItem("token");
           }
-          localStorage.setItem("token", result.data.token);
+          sessionStorage.setItem("token", result.data.token);
+          sessionStorage.setItem("user", JSON.stringify(result.data.user));
           router.push("/");
         } else {
           setServerError(result.message);
