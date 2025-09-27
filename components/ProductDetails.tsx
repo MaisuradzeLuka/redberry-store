@@ -35,22 +35,30 @@ const ProductDetails = ({ product, id }: ProductDetailsProps) => {
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
-
     setToken(storedToken);
-  }, [sessionStorage.getItem("token")]);
+  }, []);
 
   const handleAddToCart = async () => {
-    if (!token) redirect("/sign-in");
+    if (!token) {
+      redirect("/sign-in");
+    }
 
-    const res = await addToCart(
-      quantity,
-      selectedColor,
-      selectedSize,
-      id,
-      token
-    );
+    try {
+      const res = await addToCart(
+        quantity,
+        selectedColor,
+        selectedSize,
+        id,
+        token
+      );
 
-    console.log(res);
+      // Open cart after adding item
+      if (res.success) {
+        window.dispatchEvent(new CustomEvent("openCart"));
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
   };
 
   return (

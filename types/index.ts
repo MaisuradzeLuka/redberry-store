@@ -36,3 +36,25 @@ export type UserType = {
   id: number;
   username: string;
 };
+
+export type CartItemType = {
+  id: number;
+  name: string;
+  description: string;
+  release_date: string;
+  cover_image: string;
+  images: string[];
+  price: number;
+  total_price: number;
+  quantity: number;
+  brand: BrandType;
+  selectedColor?: string;
+  selectedSize?: string;
+};
+
+export type CartType = {
+  items: CartItemType[];
+  subtotal: number;
+  delivery: number;
+  total: number;
+};

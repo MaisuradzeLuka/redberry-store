@@ -12,13 +12,16 @@ const Navbar = () => {
   const [user, setUser] = useState<UserType | null>(null);
 
   useEffect(() => {
-    const storedUser = sessionStorage.getItem("user");
-
-    if (storedUser) setUser(JSON.parse(storedUser));
-  }, [sessionStorage.getItem("user")]);
+    if (typeof window !== "undefined") {
+      const storedUser = sessionStorage.getItem("user");
+      if (storedUser) setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleLogOut = () => {
-    sessionStorage.clear();
+    if (typeof window !== "undefined") {
+      sessionStorage.clear();
+    }
     setUser(null);
   };
 
@@ -32,9 +35,14 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           {user ? (
             <>
-              <Link href="#">
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new CustomEvent("openCart"))
+                }
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+              >
                 <MdLocalGroceryStore className="w-6 h-6" />
-              </Link>
+              </button>
 
               {user.avatar ? (
                 <Image
@@ -47,14 +55,14 @@ const Navbar = () => {
               ) : (
                 <FaUser className="w-6 h-6" />
               )}
-              <button onClick={handleLogOut}>
-                <IoLogOut className="w-6 h-6 cursor-pointer" />
+              <button onClick={handleLogOut} className="cursor-pointer">
+                <IoLogOut className="w-6 h-6" />
               </button>
             </>
           ) : (
             <Link
               href="/sign-in"
-              className="text-gray-700 hover:text-gray-900 font-medium"
+              className="text-gray-700 hover:text-gray-900 font-medium cursor-pointer"
             >
               Log In
             </Link>

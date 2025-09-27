@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
+import CartSidebar from "@/components/CartSidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className="antialiased">
         <Navbar />
         {children}
+        <CartSidebar />
       </body>
     </html>
   );

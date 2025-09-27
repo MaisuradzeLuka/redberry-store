@@ -28,6 +28,10 @@ const SignInPage = () => {
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     mode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const {

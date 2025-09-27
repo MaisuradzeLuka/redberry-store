@@ -75,8 +75,6 @@ const SignUpPage = () => {
     try {
       const result = await signUpAction(formData);
 
-      console.log(result);
-
       if (!result.success) {
         Object.entries(result.message).forEach(([key, value]) => {
           setError(key as keyof SignUpFormData, {

@@ -91,6 +91,7 @@ export function PriceFilter({
                 name="priceFrom"
                 type="number"
                 placeholder="0"
+                defaultValue=""
                 className="w-full h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
@@ -107,6 +108,7 @@ export function PriceFilter({
                 name="priceTo"
                 type="number"
                 placeholder="0"
+                defaultValue=""
                 className="w-full h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>

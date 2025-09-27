@@ -17,7 +17,7 @@ const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
       <div className="flex flex-col space-y-2">
         {images.map((image, index) => (
           <button
-            key={index}
+            key={`${image}-${index}`}
             onClick={() => setSelectedImage(index)}
             className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 ${
               selectedImage === index ? "border-gray-900" : "border-gray-200"
