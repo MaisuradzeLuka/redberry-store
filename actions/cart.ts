@@ -6,19 +6,25 @@ export const addToCart = async (
   token: string
 ) => {
   if (!quantity || quantity < 1) {
-    return { success: false, message: "Invalid quantity. Please enter a valid amount." };
+    return {
+      success: false,
+      message: "Invalid quantity. Please enter a valid amount.",
+    };
   }
-  
+
   if (!color || !size) {
     return { success: false, message: "Please select both color and size." };
   }
-  
+
   if (!id) {
     return { success: false, message: "Invalid product ID." };
   }
-  
+
   if (!token) {
-    return { success: false, message: "Authentication required. Please sign in." };
+    return {
+      success: false,
+      message: "Authentication required. Please sign in.",
+    };
   }
 
   try {
@@ -43,7 +49,7 @@ export const addToCart = async (
 
     if (!res.ok) {
       let errorMessage = "Failed to add item to cart";
-      
+
       try {
         const errorData = await res.json();
         errorMessage = errorData.message || errorData.errors || errorMessage;
@@ -71,7 +77,8 @@ export const addToCart = async (
           errorMessage = "Invalid product selection. Please try again.";
           break;
         case 429:
-          errorMessage = "Too many requests. Please wait a moment and try again.";
+          errorMessage =
+            "Too many requests. Please wait a moment and try again.";
           break;
         case 500:
           errorMessage = "Server error. Please try again later.";
@@ -88,10 +95,11 @@ export const addToCart = async (
   } catch (error) {
     console.error("Add to cart error:", error);
 
-    if (error instanceof TypeError && error.message.includes('fetch')) {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
       return {
         success: false,
-        message: "Network error. Please check your internet connection and try again.",
+        message:
+          "Network error. Please check your internet connection and try again.",
       };
     }
 
@@ -111,7 +119,10 @@ export const addToCart = async (
 
 export const getCartItems = async (token: string) => {
   if (!token) {
-    return { success: false, message: "Authentication required. Please sign in." };
+    return {
+      success: false,
+      message: "Authentication required. Please sign in.",
+    };
   }
 
   try {
@@ -127,7 +138,7 @@ export const getCartItems = async (token: string) => {
 
     if (!res.ok) {
       let errorMessage = "Failed to load cart items";
-      
+
       try {
         const errorData = await res.json();
         errorMessage = errorData.message || errorData.errors || errorMessage;
@@ -146,7 +157,8 @@ export const getCartItems = async (token: string) => {
           errorMessage = "Cart not found.";
           break;
         case 429:
-          errorMessage = "Too many requests. Please wait a moment and try again.";
+          errorMessage =
+            "Too many requests. Please wait a moment and try again.";
           break;
         case 500:
           errorMessage = "Server error. Please try again later.";
@@ -163,10 +175,11 @@ export const getCartItems = async (token: string) => {
   } catch (error) {
     console.error("Get cart items error:", error);
 
-    if (error instanceof TypeError && error.message.includes('fetch')) {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
       return {
         success: false,
-        message: "Network error. Please check your internet connection and try again.",
+        message:
+          "Network error. Please check your internet connection and try again.",
       };
     }
 
@@ -188,9 +201,12 @@ export const deleteCartItem = async (productId: string, token: string) => {
   if (!productId) {
     return { success: false, message: "Invalid product ID." };
   }
-  
+
   if (!token) {
-    return { success: false, message: "Authentication required. Please sign in." };
+    return {
+      success: false,
+      message: "Authentication required. Please sign in.",
+    };
   }
 
   try {
@@ -207,7 +223,7 @@ export const deleteCartItem = async (productId: string, token: string) => {
 
     if (!res.ok) {
       let errorMessage = "Failed to remove product from cart";
-      
+
       try {
         const errorData = await res.json();
         errorMessage = errorData.message || errorData.errors || errorMessage;
@@ -229,7 +245,8 @@ export const deleteCartItem = async (productId: string, token: string) => {
           errorMessage = "Item not found in cart.";
           break;
         case 429:
-          errorMessage = "Too many requests. Please wait a moment and try again.";
+          errorMessage =
+            "Too many requests. Please wait a moment and try again.";
           break;
         case 500:
           errorMessage = "Server error. Please try again later.";
@@ -245,10 +262,11 @@ export const deleteCartItem = async (productId: string, token: string) => {
   } catch (error) {
     console.error("Delete cart item error:", error);
 
-    if (error instanceof TypeError && error.message.includes('fetch')) {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
       return {
         success: false,
-        message: "Network error. Please check your internet connection and try again.",
+        message:
+          "Network error. Please check your internet connection and try again.",
       };
     }
 
@@ -274,13 +292,19 @@ export const updateCartItemQuantity = async (
   if (!productId) {
     return { success: false, message: "Invalid product ID." };
   }
-  
+
   if (!quantity || quantity < 1) {
-    return { success: false, message: "Invalid quantity. Please enter a valid amount." };
+    return {
+      success: false,
+      message: "Invalid quantity. Please enter a valid amount.",
+    };
   }
-  
+
   if (!token) {
-    return { success: false, message: "Authentication required. Please sign in." };
+    return {
+      success: false,
+      message: "Authentication required. Please sign in.",
+    };
   }
 
   try {
@@ -303,7 +327,7 @@ export const updateCartItemQuantity = async (
 
     if (!res.ok) {
       let errorMessage = "Failed to update product quantity";
-      
+
       try {
         const errorData = await res.json();
         errorMessage = errorData.message || errorData.errors || errorMessage;
@@ -331,7 +355,8 @@ export const updateCartItemQuantity = async (
           errorMessage = "Invalid quantity. Please enter a valid amount.";
           break;
         case 429:
-          errorMessage = "Too many requests. Please wait a moment and try again.";
+          errorMessage =
+            "Too many requests. Please wait a moment and try again.";
           break;
         case 500:
           errorMessage = "Server error. Please try again later.";
@@ -348,10 +373,101 @@ export const updateCartItemQuantity = async (
   } catch (error) {
     console.error("Update cart item quantity error:", error);
 
-    if (error instanceof TypeError && error.message.includes('fetch')) {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
       return {
         success: false,
-        message: "Network error. Please check your internet connection and try again.",
+        message:
+          "Network error. Please check your internet connection and try again.",
+      };
+    }
+
+    if (error instanceof SyntaxError) {
+      return {
+        success: false,
+        message: "Invalid response from server. Please try again.",
+      };
+    }
+
+    return {
+      success: false,
+      message: "An unexpected error occurred. Please try again.",
+    };
+  }
+};
+
+export const checkout = async (token: string) => {
+  if (!token) {
+    return {
+      success: false,
+      message: "Authentication required. Please sign in.",
+    };
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_CONNECTION_URL}/cart/checkout`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      let errorMessage = "Failed to process checkout";
+
+      try {
+        const errorData = await res.json();
+        errorMessage = errorData.message || errorData.errors || errorMessage;
+      } catch (parseError) {
+        console.error("Error parsing error response:", parseError);
+      }
+
+      switch (res.status) {
+        case 400:
+          errorMessage = "Invalid request. Please check your cart and try again.";
+          break;
+        case 401:
+          errorMessage = "Authentication failed. Please sign in again.";
+          break;
+        case 403:
+          errorMessage = "You don't have permission to checkout.";
+          break;
+        case 404:
+          errorMessage = "Cart not found or empty.";
+          break;
+        case 409:
+          errorMessage = "Some items in your cart are no longer available.";
+          break;
+        case 422:
+          errorMessage = "Invalid cart data. Please refresh and try again.";
+          break;
+        case 429:
+          errorMessage =
+            "Too many requests. Please wait a moment and try again.";
+          break;
+        case 500:
+          errorMessage = "Server error. Please try again later.";
+          break;
+        default:
+          errorMessage = errorMessage || "Failed to process checkout";
+      }
+
+      return { success: false, message: errorMessage };
+    }
+
+    const data = await res.json();
+    return { success: true, data: data };
+  } catch (error) {
+    console.error("Checkout error:", error);
+
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      return {
+        success: false,
+        message:
+          "Network error. Please check your internet connection and try again.",
       };
     }
 
